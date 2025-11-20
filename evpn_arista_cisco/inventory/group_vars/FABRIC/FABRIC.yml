@@ -1,0 +1,74 @@
+---
+### group_vars/FABRIC.yml
+
+ansible_connection: ansible.netcommon.httpapi
+ansible_network_os: arista.eos.eos
+ansible_user: admin
+ansible_password: admin
+ansible_become: true
+ansible_become_method: enable
+ansible_httpapi_use_ssl: true
+ansible_httpapi_validate_certs: false
+
+fabric_name: FABRIC
+
+eos_designs_documentation:
+  topology_csv: true
+  p2p_links_csv: true
+
+underlay_routing_protocol: ebgp
+overlay_routing_protocol: ebgp
+
+local_users:
+  - name: gregg
+    privilege: 15
+    role: network-admin
+    no_password: true
+  - name: admin
+    privilege: 15
+    role: network-admin
+    sha512_password: $6$TCSACrtM5.u0huKw$J404.NgN8rxlGc67pTcJEUUWdDyQAm9fZSbEllRpjPOfIcoODqy0KqY0Njs/2ceM.486UhzTzRA0t4QuapAYP/
+  - name: cvpadmin
+    privilege: 15
+    role: network-admin
+    sha512_password: $6$.icFWOMuXv.9RiWQ$g0FtXFBSjP2A6AH6lIPA44rLkklmJqdrSwW3IMhM2DgJyWYFe/06ILKBYpUt0VcGSyA8VJudujxNVWGG75wB/.
+
+bgp_peer_groups:
+  # all passwords set to "arista"
+  evpn_overlay_peers:
+    password: Q4fqtbqcZ7oQuKfuWtNGRQ==
+  ipv4_underlay_peers:
+    password: 7x4B4rnJhZB438m9+BrBfQ==
+  mlag_ipv4_underlay_peer:
+    password: 4b21pAdCvWeAqpcKDFMdWw==
+
+p2p_uplinks_mtu: 1500
+
+default_interfaces:
+  - types: [ spine ]
+    platforms: [ vEOS-lab ]
+    downlink_interfaces: [ Ethernet1-8 ]
+  - types: [ l3leaf ]
+    platforms: [ vEOS-lab ]
+    uplink_interfaces: [ Ethernet1-2 ]
+    mlag_interfaces: [ Ethernet7-8 ]
+    downlink_interfaces: [ Ethernet3, Ethernet3 ]
+
+l3_edge:
+  p2p_links_ip_pools:
+    - name: DCI_IP_POOL
+      ipv4_pool: 172.16.100.0/24
+  p2p_links_profiles:
+    - name: DCI_PROFILE
+      ip_pool: DCI_IP_POOL
+      as: [65101, 65201]
+      include_in_underlay_protocol: true
+  p2p_links:
+    - id: 1
+      nodes: [BDR1-FAB1, BDR1-FAB2]
+      interfaces: [Ethernet3, Ethernet3]
+      profile: DCI_PROFILE
+    - id: 2
+      nodes: [BDR2-FAB1, BDR2-FAB2]
+      interfaces: [Ethernet3, Ethernet3]
+      profile: DCI_PROFILE
