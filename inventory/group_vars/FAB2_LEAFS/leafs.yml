@@ -1,0 +1,80 @@
+---
+type: l3leaf
+
+l3leaf:
+  defaults:
+    platform: vEOS-lab
+    loopback_ipv4_pool: 198.18.250.64/26
+    loopback_ipv4_offset: 2
+    vtep_loopback_ipv4_pool: 198.18.250.0/26
+    uplink_switches: ['SPN1-FAB2', 'SPN2-FAB2']
+    uplink_ipv4_pool: 198.18.251.0/25
+    mlag_peer_ipv4_pool: 198.18.250.128/26
+    mlag_peer_l3_ipv4_pool: 198.18.251.192/26
+    virtual_router_mac_address: 00:1c:73:00:00:99
+    spanning_tree_priority: 4096
+    spanning_tree_mode: rapid-pvst
+
+  node_groups:
+    - group: BDR-FAB2
+      bgp_as: 65201
+      nodes:
+        - name: BDR1-FAB2
+          id: 13
+          mgmt_ip: 192.168.1.162/24
+          uplink_switch_interfaces: [Ethernet1, Ethernet1]
+          evpn_gateway:
+            remote_peers:
+              - hostname: BDR1-FAB1
+            evpn_l2:
+              enabled: true
+            evpn_l3:
+              enabled: true
+              inter_domain: true
+
+        - name: BDR2-FAB2
+          id: 14
+          mgmt_ip: 192.168.1.163/24
+          uplink_switch_interfaces: [Ethernet2, Ethernet2]
+          evpn_gateway:
+            remote_peers:
+              - hostname: BDR2-FAB2
+            evpn_l2:
+              enabled: true
+            evpn_l3:
+              enabled: true
+              inter_domain: true
+
+    - group: SVC-FAB2
+      bgp_as: 65202
+      nodes:
+        - name: SVC1-FAB2
+          id: 15
+          mgmt_ip: 192.168.1.164/24
+          uplink_switch_interfaces: [Ethernet3, Ethernet3]
+        - name: SVC2-FAB2
+          id: 16
+          mgmt_ip: 192.168.1.165/24
+          uplink_switch_interfaces: [Ethernet4, Ethernet4]
+    - group: DLF12-FAB2
+      bgp_as: 65203
+      nodes:
+        - name: DLF1-FAB2
+          id: 17
+          mgmt_ip: 192.168.1.166/24
+          uplink_switch_interfaces: [Ethernet5, Ethernet5]
+        - name: DLF2-FAB2
+          id: 18
+          mgmt_ip: 192.168.1.167/24
+          uplink_switch_interfaces: [Ethernet6, Ethernet6]
+    - group: DLF34-FAB2
+      bgp_as: 65204
+      nodes:
+        - name: DLF3-FAB2
+          id: 19
+          mgmt_ip: 192.168.1.168/24
+          uplink_switch_interfaces: [Ethernet7, Ethernet7]
+        - name: DLF4-FAB2
+          id: 20
+          mgmt_ip: 192.168.1.169/24
+          uplink_switch_interfaces: [Ethernet8, Ethernet8]

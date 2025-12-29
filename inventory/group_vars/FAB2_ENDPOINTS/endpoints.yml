@@ -1,0 +1,29 @@
+---
+### group_vars/CONNECTED_ENDPOINTS.yml
+
+routers:
+  - name: Testpoint3
+    adapters:
+      - endpoint_ports: [ G0/0, G0/1 ]
+        switch_ports: [ Ethernet3, Ethernet3 ]
+        switches: [ DLF1-FAB2, DLF2-FAB2 ]
+        vlans: 210,220,310,320,1200,1210
+        native_vlan: 4092
+        mode: trunk
+        spanning_tree_portfast: edge
+        port_channel:
+          description: PortChannel Testpoint190
+          mode: active
+
+  - name: Testpoint4
+    adapters:
+      - endpoint_ports: [ G0/0, G0/1 ]
+        switch_ports: [ Ethernet3, Ethernet3 ]
+        switches: [ DLF3-FAB2, DLF4-FAB2 ]
+        vlans: 210,220,310,320,1200,1210
+        native_vlan: 4092
+        mode: trunk
+        spanning_tree_portfast: edge
+        port_channel:
+          description: PortChannel Testpoint191
+          mode: active
