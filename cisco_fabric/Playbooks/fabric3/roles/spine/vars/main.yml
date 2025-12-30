@@ -1,0 +1,19 @@
+#SPDX-License-Identifier: MIT-0
+---
+# vars file for spine
+
+features:
+  - { feature: bgp }
+  - { feature: pim }
+  - { feature: lacp }
+  - { feature: nv overlay }
+
+asn: 65001
+
+address_families:
+  - { afi: l2vpn, safi: evpn }
+
+bgp_neighbors:
+  - { remote_as: 65001, neighbor: 10.10.10.21, update_source: Loopback0 }
+  - { remote_as: 65001, neighbor: 10.10.10.22, update_source: Loopback0 }
+

@@ -1,0 +1,8 @@
+---
+# vars file for BDR2-FAB3
+
+router_id: 198.18.252.70
+
+loopbacks:
+  - { interface: loopback0, addr: 198.18.252.70, mask: 32 }
+  - { interface: loopback1, addr: 198.18.252.6, mask: 32 }
