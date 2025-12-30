@@ -3,8 +3,6 @@
 #### MGMT IP's ####
 # Fab1        150-159
 # Fab2        160-169
-# Fab3        170-179
-# Fab4        180-189
 # Test points 190-199
 
 #### IP Pools ####
@@ -81,61 +79,6 @@ all:
                   ansible_host: 192.168.1.168
                 DLF4-FAB2:
                   ansible_host: 192.168.1.169
-    CISCO_FABRIC:
-      children:
-        FAB3:
-          children:
-            FAB3_SPINES:
-              hosts:
-                SPN1-FAB3:
-                  ansible_host: 192.168.1.170
-                SPN2-FAB3:
-                  ansible_host: 192.168.1.171
-            FAB3_LEAFS:
-              hosts:
-                BDR1-FAB3:
-                  ansible_host: 192.168.1.172
-                BDR2-FAB3:
-                  ansible_host: 192.168.1.173
-                SVC1-FAB3:
-                  ansible_host: 192.168.1.174
-                SVC2-FAB3:
-                  ansible_host: 192.168.1.175
-                DLF1-FAB3:
-                  ansible_host: 192.168.1.176
-                DLF2-FAB2:
-                  ansible_host: 192.168.1.177
-                DLF3-FAB2:
-                  ansible_host: 192.168.1.178
-                DLF4-FAB2:
-                  ansible_host: 192.168.1.179
-
-        FAB4:
-          children:
-            FAB4_SPINES:
-              hosts:
-                SPN1-FAB4:
-                  ansible_host: 192.168.1.180
-                SPN2-FAB4:
-                  ansible_host: 192.168.1.181
-            FAB4_LEAFS:
-              hosts:
-                BDR1-FAB4:
-                  ansible_host: 192.168.1.182
-                BDR2-FAB4:
-                  ansible_host: 192.168.1.183
-                SVC1-FAB4:
-                  ansible_host: 192.168.1.184
-                SVC2-FAB4:
-                  ansible_host: 192.168.1.185
-                DLF1-FAB4:
-                  ansible_host: 192.168.1.186
-                DLF2-FAB2:
-                  ansible_host: 192.168.1.187
-                DLF3-FAB2:
-                  ansible_host: 192.168.1.188
-                DLF4-FAB2:
-                  ansible_host: 192.168.1.189
 
     FAB1_NETWORKS:
       children:
