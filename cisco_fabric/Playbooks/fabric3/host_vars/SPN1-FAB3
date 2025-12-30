@@ -1,0 +1,8 @@
+---
+# vars file for SPN1-FAB3
+
+router_id: 198.18.252.225
+
+loopbacks:
+  - { interface: loopback0, addr: 198.18.252.225, mask: 32 }
+  - { interface: loopback1, addr: 198.18.100.100, mask: 32 }

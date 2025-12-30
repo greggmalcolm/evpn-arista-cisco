@@ -1,0 +1,8 @@
+---
+# vars file for DLF3-FAB3
+
+router_id: 198.18.252.75
+
+loopbacks:
+  - { interface: loopback0, addr: 198.18.252.75, mask: 32 }
+  - { interface: loopback1, addr: 198.18.252.11, mask: 32 }
